@@ -6,7 +6,6 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
-
 class Database:
     """
     Класс подключения к бд
@@ -26,7 +25,7 @@ class Database:
             )
             logger.info("Database connected successfully")
         except Exception as e:
-            logger.error(f"Database connection error: {e}")
+            logger.error("Database connection error: %s", e)
 
     @contextmanager
     def get_connection(self):
@@ -34,15 +33,13 @@ class Database:
         if self.pool is None:
             self.connect()
 
-        #if not self.pool:
-        #    raise Exception("Database not connected. Call connect() first.")
-
         conn = self.pool.getconn()
         try:
             yield conn
             conn.commit()
         except Exception as e:
             conn.rollback()
+            logger.error("Database error: %s", e)
             raise e
         finally:
             self.pool.putconn(conn)

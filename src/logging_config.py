@@ -3,7 +3,6 @@ import logging.config
 import json
 from pathlib import Path
 
-
 def setup_logging():
     """Настройка логирования"""
     log_dir = Path("logs")

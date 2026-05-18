@@ -1,6 +1,5 @@
 from src.database import db
 
-
 def get_group_id_by_name(group_name: str) -> int:
     """
     Получить ID группы по названию

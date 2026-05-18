@@ -18,14 +18,14 @@ def process_upload(file_content: bytes) -> dict:
 
         first_name, last_name, patronymic = parse_full_name(row['ФИО'])
 
-        logging.debug(f"Processing: {first_name}, {last_name}, {patronymic}")
+        logger.debug("Processing: %s, %s, %s", first_name, last_name, patronymic)
 
         student_id = get_student_id_by_name(first_name, last_name, patronymic)
         if not student_id:
-            logging.debug(f"Student not found, creating new...")
+            logger.debug("Student not found, creating new...")
             student_id = create_student(first_name, last_name, patronymic)
         else:
-            logging.debug(f"Found student with id={student_id}")
+            logger.debug("Found student with id=%s", student_id)
 
         group_id = get_group_id_by_name(row['Номер группы'])
         if not group_id:
