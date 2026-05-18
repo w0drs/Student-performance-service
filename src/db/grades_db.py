@@ -1,5 +1,7 @@
 from src.database import db
+import logging
 
+logger = logging.getLogger(__name__)
 
 def insert_grade(student_id: int,
                  group_id: int,
@@ -22,6 +24,7 @@ def insert_grade(student_id: int,
                 """,
                 (student_id, group_id, sql_date, grade)
             )
+            logging.debug(f"Inserted: student={student_id}, grade={grade}, rows affected={cur.rowcount}")
 
 
 def get_student_grades(student_id: int) -> list:

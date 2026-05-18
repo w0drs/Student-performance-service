@@ -30,8 +30,12 @@ class Database:
 
     @contextmanager
     def get_connection(self):
-        if not self.pool:
-            raise Exception("Database not connected. Call connect() first.")
+
+        if self.pool is None:
+            self.connect()
+
+        #if not self.pool:
+        #    raise Exception("Database not connected. Call connect() first.")
 
         conn = self.pool.getconn()
         try:
