@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.api import upload, analytics
 from src.logging_config import setup_logging
+from src.schemas import RootResponse, HealthResponse
 import logging
 
 setup_logging()
@@ -16,7 +17,7 @@ app.include_router(upload.router, tags=["Upload"])
 app.include_router(analytics.router, tags=["Analytics"])
 
 
-@app.get("/")
+@app.get("/", response_model=RootResponse)
 def root():
     """Корневой эндпоинт"""
     return {
@@ -30,7 +31,7 @@ def root():
     }
 
 
-@app.get("/health")
+@app.get("/health", response_model=HealthResponse)
 def health():
     """Проверка здоровья сервиса"""
     return {"status": "healthy"}

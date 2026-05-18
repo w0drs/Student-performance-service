@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from src.schemas import StudentTwosResponse, ErrorResponse
 from src.service.analytics import (
     get_students_more_than_3_twos,
     get_students_less_than_5_twos
@@ -9,8 +10,11 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-
-@router.get("/students/more-than-3-twos")
+@router.get(
+    "/students/more-than-3-twos",
+    response_model=list[StudentTwosResponse],
+    responses={500: {"model": ErrorResponse}}
+)
 def get_more_than_3_twos():
     """
     Возвращает студентов, у которых оценка 2 встречается больше 3 раз
@@ -31,7 +35,11 @@ def get_more_than_3_twos():
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/students/less-than-5-twos")
+@router.get(
+    "/students/less-than-5-twos",
+    response_model=list[StudentTwosResponse],
+    responses={500: {"model": ErrorResponse}}
+)
 def get_less_than_5_twos():
     """
     Возвращает студентов, у которых оценка 2 встречается меньше 5 раз

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from src.service.upload_file import process_upload
+from src.schemas import UploadResponse, ErrorResponse
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7,7 +8,11 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/upload-grades")
+@router.post(
+    "/upload-grades",
+    response_model=UploadResponse,
+    responses={400: {"model": ErrorResponse}, 500: {"model": ErrorResponse}}
+)
 async def upload_grades(file: UploadFile = File(...)):
     """
     Загрузить CSV файл с оценками студентов
