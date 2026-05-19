@@ -54,7 +54,7 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_DB=grade_db
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=12345
+POSTGRES_PASSWORD=ваш_пароль
 ```
 
 - Для локального запуска используйте POSTGRES_HOST=localhost.  
